@@ -2,7 +2,10 @@
 """
 Spyder Editor
 
-This is a temporary script file.
+Contains functions to create segmentation map and calculate shape asymmetry from that segementation map.
+Also included are the galaxy cutout function and source masking class.
+
+Created: January 2022 - Nick DeMarchi
 """
 
 import numpy as np
