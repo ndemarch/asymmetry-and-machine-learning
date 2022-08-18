@@ -3,10 +3,15 @@ Calculation of shape asymmetry statistic to identify ram pressure stripping gala
 
 Functions within assymetry_utils.py script are:
 
--- create_segmentation() --> To create a segmentation map of sources identified above some S/N threshold. The largest segementation is assumed                                to be our galaxy.
+1. create_segmentation() --> To create a segmentation map of sources identified above some S/N threshold. The largest segementation is assumed
+                                
+                             to be our galaxy.
 
--- calc_shape_assymetry() --> Utilizing our segementation map, considers a fixed centre and radius to compute the shape asymmetry as described                                 in [Pawlik et. al 2016](https://arxiv.org/abs/1512.02000). This is similar to [statmorph.shape_asymmetry](https://statmorph.readthedocs.io/en/latest/_modules/statmorph/statmorph.html#SourceMorphology) calculation, only we use a fixed centre. 
+2. calc_shape_assymetry() --> Utilizing our segementation map, considers a fixed centre and radius to compute the shape asymmetry as described                                 
+                              in [Pawlik et. al 2016](https://arxiv.org/abs/1512.02000). This is similar to [statmorph.shape_asymmetry](https://statmorph.readthedocs.io/en/latest/_modules/statmorph/statmorph.html#SourceMorphology) 
                               
--- galaxy_cutout() --> Same function found in radial-profile-utils repo. Creates thumbnail of our galaxy.
+                              calculation, only we use a fixed centre. 
+                              
+3. galaxy_cutout() --> Same function found in radial-profile-utils repo. Creates thumbnail of our galaxy.
 
--- MaskSources() --> Same function found in radial-profile-utils repo. Masks sources in field of view along with edges and bad pixels. 
+4. MaskSources() --> Same function found in radial-profile-utils repo. Masks sources in field of view along with edges and bad pixels. 
