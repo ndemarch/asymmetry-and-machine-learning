@@ -130,7 +130,7 @@ def calc_shape_asymmetry(segmap, centre, rmax):
         
     else:
         
-        raise ValueError('Need to import a segmentation map and center')
+        raise ValueError('Need to import a segmentation map and a center and radius for rotation')
 
     return As
 
