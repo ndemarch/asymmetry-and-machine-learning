@@ -23,11 +23,9 @@ from astropy.io import fits
 import warnings
 
 
-
-def create_segmentation(data, nsigma=3.0, sigma_clip=3.0 , npixels=8, filter=False):
+def create_segmentation(data, npixels=8, nsigma=3.0, sigma_clip=None , filter=False):
     
     '''
-
     Parameters
     ----------
     data : (NXM array)
@@ -42,22 +40,23 @@ def create_segmentation(data, nsigma=3.0, sigma_clip=3.0 , npixels=8, filter=Fal
               have to be deblended. npixels must be a positive integer. The default is 8.
     filter : (bool), optional
              Whether or not we use a uniform filter on the segmentation image. The default is False.
-
     Raises
     ------
     ValueError
         Raises error if our data is not two dimensional.
-
     Returns
     -------
     (NXM array)
         The segmentation image which will have the same shape as data.
-
     '''
     
-    if data.sndim != 2:
+    if data.ndim != 2:
         
         raise ValueError('Data must be a two dimensional array')
+        
+    if sigma_clip is None:
+        
+        raise ValueError('sigma_clip can not be None. Must including clipping statistics using astropy.stats.SigmaClip.')
         
     threshold = detect_threshold(data, nsigma=nsigma , sigma_clip=sigma_clip)
     
@@ -85,7 +84,6 @@ def create_segmentation(data, nsigma=3.0, sigma_clip=3.0 , npixels=8, filter=Fal
 
 def calc_shape_asymmetry(segmap, centre, rmax):
     '''
-
     Parameters
     ----------
     segmap : (NXM array of labels)
@@ -94,13 +92,11 @@ def calc_shape_asymmetry(segmap, centre, rmax):
              The centre of our main target.
     rmax : (float)
             The user defined radius to rotate our image within.
-
     Returns
     -------
     As : (float)
          Calculated shape asymmetry following Pawlik et. al. 2016:
              As = sum(|I_180 - I|) / (2*sum(|I|))
-
     '''
     
     if (segmap, centre, rmax) is not None:
@@ -111,7 +107,7 @@ def calc_shape_asymmetry(segmap, centre, rmax):
         
         if np.unique(seg_180).shape[0] > 2:
             
-            print('Grabbing the largest segmentation')
+            #print('Grabbing the largest segmentation')
             
             segmap_180 = 1*(seg_180 == seg_180.max())
             
@@ -200,7 +196,7 @@ def galaxy_cutout(data, header, ra, dec, name, size=10.0, centre_and_radius=Fals
         return cutout, centre, r
     
 
-
+    
 class MaskSources(object):
 
     def __init__(self, data, name, path_to_table, wcs = None, header = None, ps=None, include_galaxy=False, large_incl_corr=True, incl_limit=0.2):
@@ -341,7 +337,7 @@ class MaskSources(object):
             query = Vizier.query_region(table['Galaxy'][i], radius='0d0m20s', catalog='HyperLEDA')
             r25_extra = Angle((10 ** query[0]['logD25'][0] * 0.1 / 60 / 2) * u.deg).arcsec
             radius_map_extra = radius_map(self.data.shape, ra[i], dec[i], pa[i], incl[i], self.w)
-            disk_mask |= radius_map_extra < (1.5 * r25_extra)
+            disk_mask |= radius_map_extra < (1.25 * r25_extra)
         # now load our galaxy ra,dec
         n_load_table = fits.open(self.path_to_table)[1].data
         n_table = n_load_table[np.isin(n_load_table['Galaxy'], self.name)]
@@ -379,8 +375,7 @@ class MaskSources(object):
                 # create radius map
                 radius_map_j = radius_map(self.data.shape, ra_j, dec_j, pa_j, incl_j, self.w)
                 # add elliptical mask for specified extra source
-                disk_mask |= radius_map_j < (1.5 * r25_j)
+                disk_mask |= radius_map_j < (1.25 * r25_j)
         # the final return
         return (~disk_mask)
-
 
