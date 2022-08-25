@@ -74,7 +74,7 @@ def create_segmentation(data, npixels=8, nsigma=3.0, sigma_clip=None , filter=Fa
        
        filtered_float = uniform_filter(np.float64(source_segmap), size=5)
     
-       filtered_segmap = filtered_float > 0.5
+       filtered_segmap = 1*(filtered_float > 0.5)
        
        return filtered_segmap
 
@@ -351,15 +351,15 @@ class MaskSources(object):
                                          height=self.ps * self.data.shape[1] * u.arcsec,
                                          catalog='HyperLEDA')
         n_objects = len(leda_query[0]['RAJ2000'])
-        print('number of masked objects is: ', n_objects)
+        #print('number of masked objects is: ', n_objects)
         for j in range(n_objects):
             # need to make sure my galaxy exists in field of view and is not masked
             if len(leda_query[0]['ANames'][j].split()) > 0:
                 n_names = len(leda_query[0]['ANames'][j].split())
                 for k in range(n_names):
                     if leda_query[0]['ANames'][j].split()[k] == self.name:
-                        print(leda_query[0]['ANames'][j].split()[k])
-                        print('found you: ', self.name)
+                        #print(leda_query[0]['ANames'][j].split()[k])
+                        #print('found you: ', self.name)
                         continue
             else:
                 gal_ra_parsed = leda_query[0]['RAJ2000'][j].split(' ')
