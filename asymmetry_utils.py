@@ -107,8 +107,6 @@ def calc_shape_asymmetry(segmap, centre, rmax):
         
         if np.unique(seg_180).shape[0] > 2:
             
-            #print('Grabbing the largest segmentation')
-            
             segmap_180 = 1*(seg_180 == seg_180.max())
             
         else:
@@ -351,7 +349,6 @@ class MaskSources(object):
                                          height=self.ps * self.data.shape[1] * u.arcsec,
                                          catalog='HyperLEDA')
         n_objects = len(leda_query[0]['RAJ2000'])
-        #print('number of masked objects is: ', n_objects)
         for j in range(n_objects):
             # need to make sure my galaxy exists in field of view and is not masked
             if len(leda_query[0]['ANames'][j].split()) > 0:
