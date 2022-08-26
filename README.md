@@ -1,5 +1,5 @@
 # asymmetry-and-machine-learning
-Calculation of shape asymmetry statistic to identify ram pressure stripping galaxies. Machine learning is used to define morphological classes for a galaxy cluster.
+Calculation of shape asymmetry statistic to identify ram pressure stripping galaxies. Machine learning is used to group our morphological classes for a galaxy cluster. Requires [Scikit-learn](https://scikit-learn.org/stable/install.html), [Scikit-image](https://pypi.org/project/scikit-image/), [Numpy](https://numpy.org/install/), [Astropy](https://docs.astropy.org/en/stable/install.html), [Matplotlib](https://matplotlib.org/stable/users/installing/index.html#:~:text=If%20you%20are%20using%20the,sudo%20yum%20install%20python3%2Dmatplotlib), [Scipy](https://scipy.org/install/), [Astroquery](https://astroquery.readthedocs.io/en/latest/) and [Photutils](https://photutils.readthedocs.io/en/stable/install.html#).
 
 Functions within asymetry_utils.py script are:
 
