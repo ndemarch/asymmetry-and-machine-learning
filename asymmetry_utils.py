@@ -120,13 +120,12 @@ def calc_shape_asymmetry(segmap, centre, rmax):
         
         ap_diff = ap.do_photometry(np.abs(segmap-segmap_180), method='exact')[0][0]
 
-        As = ap_diff / (2*ap_sum)
+        return ap_diff / (2*ap_sum)
         
     else:
         
-        raise ValueError('Need to import a segmentation map and a center and radius for rotation')
+        raise ValueError('Need to import a segmentation map and/or the galaxy center + radius for image rotation')
 
-    return As
 
 
 def galaxy_cutout(data, header, ra, dec, name, size=10.0, centre_and_radius=False):
